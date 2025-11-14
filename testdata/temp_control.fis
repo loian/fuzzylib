@@ -1,0 +1,39 @@
+[System]
+Name='TemperatureFanControl'
+Type='mamdani'
+Version=2.0
+NumInputs=1
+NumOutputs=1
+NumRules=4
+AndMethod='min'
+OrMethod='max'
+ImpMethod='min'
+AggMethod='max'
+DefuzzMethod='mom'
+
+[Input1]
+Name='Temperature'
+Range=[0 50]
+NumMFs=4
+MF1='Cold':'trapmf',[0 0 12 20]
+MF2='Cool':'trapmf',[8 15 22 28]
+MF3='Mild':'trapmf',[15 20 26 32]
+MF4='Hot':'trapmf',[28 35 50 51]
+
+[Output1]
+Name='FanSpeed'
+Range=[0 100]
+NumMFs=3
+MF1='Low':'trapmf',[0 0 20 40]
+MF2='Medium':'trapmf',[30 45 55 70]
+MF3='High':'trapmf',[70 90 100 101]
+
+[Rules]
+# IF Temperature is Cold THEN FanSpeed is Low
+1, 1 (1.0) : 1
+# IF Temperature is Cool THEN FanSpeed is Low
+2, 1 (1.0) : 1
+# IF Temperature is Mild THEN FanSpeed is Medium
+3, 2 (1.0) : 1
+# IF Temperature is Hot THEN FanSpeed is High
+4, 3 (1.0) : 1
