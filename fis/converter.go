@@ -194,13 +194,7 @@ func convertRule(spec RuleSpec, inputs, outputs []VariableSection) (*rule.Rule, 
 		condition := rule.RuleCondition{
 			Variable: inputs[i].Name,
 			Set:      inputs[i].MFs[setIdx].Name,
-		}
-
-		// Note: Negation is not directly supported in our current rule structure
-		// This is a limitation we'll need to address if negated rules are common
-		if isNegated {
-			// For now, we'll ignore negation with a warning
-			// In future, could wrap condition with NOT operator
+			Negated:  isNegated,
 		}
 
 		r.Conditions = append(r.Conditions, condition)

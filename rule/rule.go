@@ -11,6 +11,7 @@ import (
 type RuleCondition struct {
 	Variable string // Variable name (e.g., "Temperature")
 	Set      string // Fuzzy set name (e.g., "Cold")
+	Negated  bool   // If true, apply NOT operator to this condition
 }
 
 // Rule represents an IF-THEN fuzzy rule
@@ -44,6 +45,13 @@ func NewRule(output RuleCondition, operator operators.Operator) (*Rule, error) {
 // AddCondition adds a condition to the rule.
 // Returns error if variable or set name is empty.
 func (r *Rule) AddCondition(variable, set string) error {
+	return r.AddConditionEx(variable, set, false)
+}
+
+// AddConditionEx adds a condition to the rule with optional negation.
+// If negated is true, the NOT operator will be applied to this condition.
+// Returns error if variable or set name is empty.
+func (r *Rule) AddConditionEx(variable, set string, negated bool) error {
 	if variable == "" {
 		return fmt.Errorf("condition variable name cannot be empty")
 	}
@@ -53,6 +61,7 @@ func (r *Rule) AddCondition(variable, set string) error {
 	r.Conditions = append(r.Conditions, RuleCondition{
 		Variable: variable,
 		Set:      set,
+		Negated:  negated,
 	})
 	return nil
 }
@@ -80,7 +89,12 @@ func (r *Rule) Evaluate(membershipMap map[string]map[string]float64) (float64, e
 	for i, cond := range r.Conditions {
 		if varMap, ok := membershipMap[cond.Variable]; ok {
 			if degree, ok := varMap[cond.Set]; ok {
-				values[i] = degree
+				if cond.Negated {
+					// Apply NOT operator: 1 - membership_degree
+					values[i] = 1.0 - degree
+				} else {
+					values[i] = degree
+				}
 			}
 		}
 	}

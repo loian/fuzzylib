@@ -96,7 +96,11 @@ go test ./...
 
 ## Roadmap
 
-Early priorities include richer `.fis` coverage (negation support, Sugeno files), additional membership shapes, and higher-level diagnostics for debugging rule bases.
+Planned enhancements include richer `.fis` coverage (Sugeno files), additional membership shapes, and higher-level diagnostics for debugging rule bases.
+
+### Recently Completed
+
+- **Negation support**: Rules can now use NOT conditions (e.g., "IF Temperature is NOT Cold..."). Fully supported in both manual rule creation and `.fis` file loading.
 3, 2 (1.0) : 1  # IF Temperature is Mild THEN FanSpeed is Medium
 4, 3 (1.0) : 1  # IF Temperature is Hot THEN FanSpeed is High
 ```
@@ -121,6 +125,27 @@ if err := fis.SetResolution(2000); err != nil {  // Default: 1000
 ```
 
 Higher resolution improves numeric accuracy but increases CPU cost. Typical range: `500-2000`.
+
+### Negated Conditions
+
+Rules can use negated conditions (NOT operator) to express inverse relationships:
+
+```go
+rule, _ := rule.NewRule(rule.RuleCondition{
+    Variable: "FanSpeed",
+    Set:      "High",
+}, operators.AND)
+
+// Add a normal condition
+rule.AddCondition("Temperature", "Hot")
+
+// Add a negated condition using AddConditionEx
+rule.AddConditionEx("Humidity", "Dry", true)  // NOT Dry
+
+// This creates: IF Temperature is Hot AND Humidity is NOT Dry THEN FanSpeed is High
+```
+
+The `AddConditionEx(variable, set, negated)` method allows you to specify whether a condition should be negated. The standard `AddCondition` method adds non-negated conditions.
 
 ## Error Handling
 
@@ -171,4 +196,11 @@ Supported membership functions in `.fis` files:
 Rule format: `input1_idx input2_idx, output_idx (weight) : connection`
 - Connection: `1` = AND, `2` = OR
 - Weight: `0.0-1.0` (rule strength multiplier)
+- Negation: Use negative indices (e.g., `-1` means NOT the 1st membership function)
+
+Example with negation:
+```
+# IF Temperature is NOT Cold AND Humidity is High THEN FanSpeed is High
+-1 3, 3 (1.0) : 1
+```
 
