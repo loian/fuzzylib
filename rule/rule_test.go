@@ -382,3 +382,59 @@ func TestRule_AddCondition_UsesAddConditionEx(t *testing.T) {
 		t.Error("AddCondition should add non-negated condition")
 	}
 }
+
+func TestNewRule_RejectsNegatedOutput(t *testing.T) {
+	// Test that NewRule rejects negated output conditions
+	output := RuleCondition{
+		Variable: "FanSpeed",
+		Set:      "High",
+		Negated:  true, // This should be rejected
+	}
+
+	rule, err := NewRule(output, operators.AND)
+	if err == nil {
+		t.Error("Expected error when creating rule with negated output, got nil")
+	}
+	if rule != nil {
+		t.Error("Expected nil rule when output is negated")
+	}
+	if err != nil && !contains(err.Error(), "output condition cannot be negated") {
+		t.Errorf("Expected error message about negated output, got: %v", err)
+	}
+}
+
+func TestNewRule_AcceptsNonNegatedOutput(t *testing.T) {
+	// Test that NewRule accepts non-negated output conditions
+	output := RuleCondition{
+		Variable: "FanSpeed",
+		Set:      "High",
+		Negated:  false,
+	}
+
+	rule, err := NewRule(output, operators.AND)
+	if err != nil {
+		t.Errorf("Unexpected error when creating rule with non-negated output: %v", err)
+	}
+	if rule == nil {
+		t.Error("Expected valid rule, got nil")
+	}
+	if rule != nil && rule.Output.Negated {
+		t.Error("Output condition should not be negated")
+	}
+}
+
+// Helper function for substring matching
+func contains(s, substr string) bool {
+	return len(s) >= len(substr) && (s == substr || len(s) > len(substr) &&
+		(s[:len(substr)] == substr || s[len(s)-len(substr):] == substr ||
+			findSubstring(s, substr)))
+}
+
+func findSubstring(s, substr string) bool {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return true
+		}
+	}
+	return false
+}

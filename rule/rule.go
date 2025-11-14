@@ -23,13 +23,16 @@ type Rule struct {
 }
 
 // NewRule creates a new fuzzy rule with default weight of 1.0 and AND operator.
-// Returns error if output variable or set name is empty.
+// Returns error if output variable or set name is empty, or if output is negated.
 func NewRule(output RuleCondition, operator operators.Operator) (*Rule, error) {
 	if output.Variable == "" {
 		return nil, fmt.Errorf("output variable name cannot be empty")
 	}
 	if output.Set == "" {
 		return nil, fmt.Errorf("output set name cannot be empty")
+	}
+	if output.Negated {
+		return nil, fmt.Errorf("output condition cannot be negated: negation is only valid for input conditions")
 	}
 	if operator == nil {
 		operator = operators.AND
