@@ -2,7 +2,7 @@ package rule
 
 import (
 	"fmt"
-	"fuzzy/operators"
+	"github.com/loian/fuzzylib/operators"
 )
 
 // RuleCondition represents a condition in a rule (e.g., "Temperature IS Cold").

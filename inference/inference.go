@@ -2,9 +2,9 @@ package inference
 
 import (
 	"fmt"
-	"fuzzy/operators"
-	"fuzzy/rule"
-	"fuzzy/variable"
+	"github.com/loian/fuzzylib/operators"
+	"github.com/loian/fuzzylib/rule"
+	"github.com/loian/fuzzylib/variable"
 	"math"
 )
 

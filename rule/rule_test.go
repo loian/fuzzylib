@@ -1,7 +1,7 @@
 package rule
 
 import (
-	"fuzzy/operators"
+	"github.com/loian/fuzzylib/operators"
 	"math"
 	"testing"
 )

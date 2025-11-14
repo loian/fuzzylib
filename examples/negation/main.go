@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"fuzzy/fis"
-	"fuzzy/inference"
-	"fuzzy/membership"
-	"fuzzy/operators"
-	"fuzzy/rule"
-	"fuzzy/set"
-	"fuzzy/variable"
+	"github.com/loian/fuzzylib/fis"
+	"github.com/loian/fuzzylib/inference"
+	"github.com/loian/fuzzylib/membership"
+	"github.com/loian/fuzzylib/operators"
+	"github.com/loian/fuzzylib/rule"
+	"github.com/loian/fuzzylib/set"
+	"github.com/loian/fuzzylib/variable"
 )
 
 func main() {

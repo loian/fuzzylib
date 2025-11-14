@@ -1,11 +1,11 @@
 package inference
 
 import (
-	"fuzzy/membership"
-	"fuzzy/operators"
-	"fuzzy/rule"
-	"fuzzy/set"
-	"fuzzy/variable"
+	"github.com/loian/fuzzylib/membership"
+	"github.com/loian/fuzzylib/operators"
+	"github.com/loian/fuzzylib/rule"
+	"github.com/loian/fuzzylib/set"
+	"github.com/loian/fuzzylib/variable"
 	"math"
 	"testing"
 )

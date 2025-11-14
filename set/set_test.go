@@ -1,7 +1,7 @@
 package set
 
 import (
-	"fuzzy/membership"
+	"github.com/loian/fuzzylib/membership"
 	"testing"
 )
 

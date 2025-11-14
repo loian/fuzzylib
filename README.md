@@ -17,14 +17,14 @@ The very first public release of **fuzzy**, a lightweight Mamdani-style fuzzy in
 ## Installation
 
 ```bash
-go get github.com/lorenzo-iannone/fuzzy
+go get github.com/loian/fuzzylib
 ```
 
 Alternatively, clone the repository if you prefer local development:
 
 ```bash
-git clone https://github.com/lorenzo-iannone/fuzzy.git
-cd fuzzy
+git clone https://github.com/loian/fuzzylib.git
+cd fuzzylib
 ```
 
 ## Quick Example
@@ -34,10 +34,10 @@ package main
 
 import (
     "fmt"
-    "fuzzy/inference"
-    "fuzzy/membership"
-    "fuzzy/set"
-    "fuzzy/variable"
+    "github.com/loian/fuzzylib/inference"
+    "github.com/loian/fuzzylib/membership"
+    "github.com/loian/fuzzylib/set"
+    "github.com/loian/fuzzylib/variable"
 )
 
 func main() {

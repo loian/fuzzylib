@@ -1,8 +1,8 @@
 package variable
 
 import (
-	"fuzzy/membership"
-	"fuzzy/set"
+	"github.com/loian/fuzzylib/membership"
+	"github.com/loian/fuzzylib/set"
 	"math"
 	"testing"
 )

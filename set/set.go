@@ -2,7 +2,7 @@ package set
 
 import (
 	"fmt"
-	"fuzzy/membership"
+	"github.com/loian/fuzzylib/membership"
 )
 
 // FuzzySet represents a fuzzy set with a membership function

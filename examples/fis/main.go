@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"fuzzy/fis"
+	"github.com/loian/fuzzylib/fis"
 )
 
 func main() {

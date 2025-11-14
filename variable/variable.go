@@ -2,7 +2,7 @@ package variable
 
 import (
 	"fmt"
-	"fuzzy/set"
+	"github.com/loian/fuzzylib/set"
 )
 
 // SetRef is a type-safe reference to a fuzzy set within a variable.
