@@ -55,9 +55,9 @@ MF3='High':'trapmf',[60 80 100 100]
 Name='EmploymentDuration'
 Range=[0 10]
 NumMFs=3
-MF1='Level1':'trapmf',[0 0 2 4]
-MF2='Level2':'trimf',[3 5 7]
-MF3='Level3':'trapmf',[6 8 10 10]
+MF1='Low':'trapmf',[0 0 2 4]
+MF2='Good':'trimf',[3 5 7]
+MF3='Exceptional':'trapmf',[6 8 10 10]
 
 [Input7]
 Name='MaritalStatus'
@@ -95,7 +95,7 @@ MF3='Approved':'trapmf',[60 80 100 100]
 # Rule format: CreditScore Income DebtToIncome LoanTerm CreditUtil EmpDuration MaritalStatus LTV NumberOfDependents, Output (weight) : connection
 
 # === REJECTED Rules (high risk) ===
-# IF CreditScore is Poor AND EmploymentDuration is Level1 THEN Rejected (Working Status)
+# IF CreditScore is Poor AND EmploymentDuration is Low THEN Rejected (Working Status)
 1 0 0 0 0 1 0 0 0, 1 (1.0) : 1
 
 # IF Income is Low AND NumberOfDependents is Many THEN Rejected (Family Financial Burden)
@@ -111,7 +111,7 @@ MF3='Approved':'trapmf',[60 80 100 100]
 1 0 0 0 0 0 0 3 0, 1 (1.0) : 1
 
 # === APPROVED Rules (low risk) ===
-# IF Income is High AND EmploymentDuration is Level3 THEN Approved (Strong Working Status)
+# IF Income is High AND EmploymentDuration is Exceptional THEN Approved (Strong Working Status)
 0 3 0 0 0 3 0 0 0, 3 (1.0) : 1
 
 # IF MaritalStatus is Married AND NumberOfDependents is Few AND Income is High THEN Approved (Stable Family + Good Income)
@@ -120,14 +120,14 @@ MF3='Approved':'trapmf',[60 80 100 100]
 # IF LoanTerm is Medium AND LTV is Low AND DebtToIncomeRatio is Low THEN Approved (Optimal Loan Structure)
 0 0 3 3 0 0 0 1 0, 3 (1.0) : 1
 
-# IF CreditScore is Excellent AND EmploymentDuration is Level3 THEN Approved (Excellent Working Status)
+# IF CreditScore is Excellent AND EmploymentDuration is Exceptional THEN Approved (Excellent Working Status)
 3 0 0 0 0 3 0 0 0, 3 (1.0) : 1
 
 # IF CreditScore is Excellent AND DebtToIncomeRatio is Low AND CreditUtilization is Low THEN Approved (Strong Financials)
 3 0 3 0 3 0 0 0 0, 3 (1.0) : 1
 
 # === REVIEW Rules (moderate risk, needs human assessment) ===
-# IF Income is Medium AND EmploymentDuration is Level2 THEN Review (Moderate Working Status)
+# IF Income is Medium AND EmploymentDuration is Good THEN Review (Moderate Working Status)
 0 2 0 0 0 2 0 0 0, 2 (1.0) : 1
 
 # IF MaritalStatus is Divorced AND NumberOfDependents is Many THEN Review (Complex Family Situation)
